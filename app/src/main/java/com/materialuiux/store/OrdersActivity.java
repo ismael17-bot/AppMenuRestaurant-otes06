@@ -34,7 +34,6 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
-
         recyclerView = findViewById(R.id.id_recycler_orders);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this);

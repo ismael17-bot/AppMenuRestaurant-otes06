@@ -29,7 +29,7 @@ public class SignInActivity extends AppCompatActivity {
         Waiter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this,CallWaiter.class);
+                Intent intent = new Intent(SignInActivity.this, CallWaiter.class);
                 startActivity(intent);
             }
         });
