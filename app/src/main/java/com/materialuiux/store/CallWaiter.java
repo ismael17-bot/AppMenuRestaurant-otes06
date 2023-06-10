@@ -8,18 +8,18 @@ import android.widget.Button;
 
 public class CallWaiter extends AppCompatActivity {
 
-    Button Menu;
+    Button Main;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_waiter);
 
-        Menu = findViewById(R.id.id_Menu);
+        Main = findViewById(R.id.id_MainBtn);
 
-        Menu.setOnClickListener(new View.OnClickListener() {
+        Main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CallWaiter.this, MenuActivity.class);
+                Intent intent = new Intent(CallWaiter.this, SignInActivity.class);
                 startActivity(intent);
             }
         });
