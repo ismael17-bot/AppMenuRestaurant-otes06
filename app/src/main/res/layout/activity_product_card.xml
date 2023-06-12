@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/Theme.Lacuccina.AppBarOverlay">
 
 
         <RelativeLayout
@@ -24,9 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/white"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/Theme.Lacuccina.PopupOverlay" />
 
-            <fontsmaterialuiux.Raleway_Regular_TextView
+            <fontsproject.Raleway_Regular_TextView
                 android:id="@+id/id_Product_Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     android:src="@drawable/ic_shopping_bag"
                     tools:ignore="ContentDescription" />
 
-                <fontsmaterialuiux.Raleway_Regular_TextView
+                <fontsproject.Raleway_Regular_TextView
                     android:id="@+id/id_order_count"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
@@ -101,7 +101,7 @@
                     android:layout_marginBottom="5dp"
                     android:orientation="vertical">
 
-                    <fontsmaterialuiux.Raleway_Bold_TextView
+                    <fontsproject.Raleway_Bold_TextView
                         android:id="@+id/id_Product_Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="20sp" />
 
-                    <fontsmaterialuiux.Raleway_Italic_TextView
+                    <fontsproject.Raleway_Italic_TextView
                         android:id="@+id/id_Brand_Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                         android:textColor="@color/secondaryTextColor"
                         android:textSize="14sp" />
 
-                    <fontsmaterialuiux.Raleway_Italic_TextView
+                    <fontsproject.Raleway_Italic_TextView
                         android:id="@+id/id_product_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
 
-                        <fontsmaterialuiux.Raleway_Regular_EditText
+                        <fontsproject.Raleway_Regular_EditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -179,7 +179,7 @@
                         android:layout_toLeftOf="@+id/id_add_to_cart"
                         android:src="@drawable/ic_shopping_cart_white" />
 
-                    <fontsmaterialuiux.Raleway_Regular_TextView
+                    <fontsproject.Raleway_Regular_TextView
                         android:id="@+id/id_add_to_cart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

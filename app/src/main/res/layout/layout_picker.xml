@@ -4,8 +4,6 @@
     android:padding="5dp"
     android:layout_height="wrap_content">
 
-
-
     <View
         android:id="@+id/color_view"
         android:layout_width="35dp"

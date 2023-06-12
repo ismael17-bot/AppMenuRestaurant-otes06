@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/Theme.Lacuccina.AppBarOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,19 +24,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorWhite"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/Theme.Lacuccina.PopupOverlay" />
 
-            <fontsmaterialuiux.Raleway_Regular_TextView
+            <fontsproject.Raleway_Regular_TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/new_arrivals"
-                android:textColor="@color/colorBlack"
-                android:textSize="14sp" />
+                android:textColor="@color/colorBlack" />
 
             <RelativeLayout
                 android:layout_width="80dp"
-                android:layout_alignParentRight="true"
                 android:layout_height="59dp"
                 android:gravity="center"
                 android:layout_alignParentEnd="true">
@@ -50,7 +48,7 @@
                     android:src="@drawable/ic_shopping_bag"
                     tools:ignore="ContentDescription" />
 
-                <fontsmaterialuiux.Raleway_Regular_TextView
+                <fontsproject.Raleway_Regular_TextView
                     android:id="@+id/id_order_count"
                     android:layout_width="16dp"
                     android:layout_height="16dp"

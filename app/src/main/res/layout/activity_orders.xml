@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/Theme.Lacuccina.AppBarOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,13 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/white"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/Theme.Lacuccina.PopupOverlay" />
 
         </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <fontsmaterialuiux.Raleway_Bold_TextView
+    <fontsproject.Raleway_Bold_TextView
         android:id="@+id/id_Title_tx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

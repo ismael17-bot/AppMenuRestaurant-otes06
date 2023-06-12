@@ -11,7 +11,7 @@
         android:layout_marginTop="107dp"
         android:orientation="vertical">
 
-        <fontsmaterialuiux.Raleway_Regular_TextView
+        <fontsproject.Raleway_Regular_TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,7 +20,7 @@
             android:gravity="center"
             android:textSize="18sp" />
 
-        <fontsmaterialuiux.Raleway_Medium_TextView
+        <fontsproject.Raleway_Medium_TextView
             android:id="@+id/id_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:gravity="center"
             android:textStyle="bold" />
 
-        <fontsmaterialuiux.Raleway_Medium_TextView
+        <fontsproject.Raleway_Medium_TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:textStyle="bold" />
 
-        <fontsmaterialuiux.Raleway_Medium_TextView
+        <fontsproject.Raleway_Medium_TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,7 +54,7 @@
             android:gravity="center"
             android:textStyle="bold" />
 
-        <fontsmaterialuiux.Raleway_Medium_TextView
+        <fontsproject.Raleway_Medium_TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

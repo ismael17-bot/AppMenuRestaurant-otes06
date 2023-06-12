@@ -7,11 +7,10 @@
     android:background="@drawable/splash"
     tools:context=".SplashActivity">
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        />
 
     <View
         android:layout_width="match_parent"
@@ -23,7 +22,7 @@
         android:layout_height="300dp"
         android:layout_centerInParent="true">
 
-        <fontsmaterialuiux.Raleway_Bold_TextView
+        <fontsproject.Raleway_Bold_TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -45,7 +44,7 @@
                 android:layout_height="80dp"
                 android:indeterminateDrawable="@drawable/progressbackground" />
 
-            <fontsmaterialuiux.Raleway_Bold_TextView
+            <fontsproject.Raleway_Bold_TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
