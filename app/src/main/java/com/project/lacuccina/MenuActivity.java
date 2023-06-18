@@ -111,7 +111,6 @@ public class MenuActivity extends AppCompatActivity {
             } else if (Objects.equals(menuArray[i][3], "R.drawable.nhoque_fughi")) {
                 url = R.drawable.nhoque_fughi;
             }else{
-                System.out.println(menuArray[i][3]);
                 url = R.drawable.bolonhesa;
             }
 

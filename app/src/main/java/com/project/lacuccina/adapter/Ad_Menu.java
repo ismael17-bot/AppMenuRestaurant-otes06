@@ -2,6 +2,7 @@ package com.project.lacuccina.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,11 +42,12 @@ public class Ad_Menu extends RecyclerView.Adapter<Holder_Menu> {
         holder_menu.getTitle().setText(food.getTitle());
         holder_menu.getBody().setText(food.getDesc());
         holder_menu.getPrice().setText("R$ " + food.getPrice());
-        holder_menu.getPrice().setText(food.getId());
+        holder_menu.getId().setText(food.getId());
         holder_menu.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProductCard.class);
+                intent.putExtra("id_product", food.getId());
                 mContext.startActivity(intent);
             }
         });

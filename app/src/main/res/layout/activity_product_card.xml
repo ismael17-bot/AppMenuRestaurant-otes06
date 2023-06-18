@@ -58,7 +58,7 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_background_cart"
                     android:gravity="center"
-                    android:text="5"
+                    android:text="0"
                     android:textColor="@color/primaryTextColor"
                     android:textSize="11sp" />
 
@@ -80,6 +80,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/id_img_item"
                 android:layout_width="match_parent"
                 android:layout_height="340dp"
                 android:scaleType="fitXY"
@@ -111,7 +112,7 @@
                         android:textSize="20sp" />
 
                     <fontsproject.Raleway_Italic_TextView
-                        android:id="@+id/id_Brand_Name"
+                        android:id="@+id/id_Desc_Item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Creme de leite fresco, queijo parmesão ralado e manteiga"
