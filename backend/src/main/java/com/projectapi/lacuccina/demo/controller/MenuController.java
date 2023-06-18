@@ -1,6 +1,9 @@
 package com.projectapi.lacuccina.demo.controller;
 import java.util.List;
 
+import com.projectapi.lacuccina.demo.DTO.MenuDTO;
+import com.projectapi.lacuccina.demo.DTO.MenuRequestDTO;
+import com.projectapi.lacuccina.demo.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,22 +23,30 @@ public class MenuController {
     private MenuService menuService;
 
     @GetMapping
-    public List<Menu> getAll() {
-        return this.menuService.getAll();
+    public List<MenuDTO> getAll() {
+        return menuService.getAllFoods();
     }
 
     @PostMapping
-    public Menu create(@RequestBody Menu menu) {
-        return this.menuService.create(menu);
+    public void addFoodMenu(@RequestBody MenuRequestDTO food) {
+        menuService.addFoodMenu(food);
     }
 
-    @PutMapping(value = "/{id}")
-    public Menu update(@PathVariable("id") String id, @RequestBody Menu menu) {
-        return this.menuService.update(id, menu);
+    @GetMapping("/food/{id}")
+    public MenuDTO getEspecficFoodById(@PathVariable Long id) {
+        return menuService.getEspecficFoodById(id);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public Menu delete(@PathVariable("id") String id) {
-        return this.menuService.delete(id);
-    }
+
+
+//
+//    @PutMapping(value = "/{id}")
+//    public Menu update(@PathVariable("id") String id, @RequestBody Menu menu) {
+//        return this.menuService.update(id, menu);
+//    }
+//
+//    @DeleteMapping(value = "/{id}")
+//    public Menu delete(@PathVariable("id") String id) {
+//        return this.menuService.delete(id);
+//    }
 }
