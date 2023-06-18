@@ -1,5 +1,6 @@
 package com.project.lacuccina;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,13 +12,19 @@ import android.view.View;
 import com.project.lacuccina.adapter.Ad_Menu;
 import com.project.lacuccina.model.Food;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MenuActivity extends AppCompatActivity {
 
     RecyclerView recyclerview;
     GridLayoutManager gridLayoutManager;
     Ad_Menu ad_menu;
+    String[][] menuArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +48,76 @@ public class MenuActivity extends AppCompatActivity {
         recyclerview.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
-        ad_menu = new Ad_Menu(this, getData());
+        SearchMenu searchMenu = new SearchMenu();
+        searchMenu.execute("http://10.0.2.2:8081/menu");
 
+    }
+
+    public void setItensMenu(String menu) {
+        try {
+            JSONArray jsonArray = new JSONArray(menu);
+            menuArray = new String[jsonArray.length()][5];
+            // Percorrer o JSONArray
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                menuArray[i][0] = String.valueOf(jsonObject.getInt("id"));
+                menuArray[i][1] = jsonObject.getString("description");
+                menuArray[i][2] = jsonObject.getString("title");
+                menuArray[i][3] = jsonObject.getString("url");
+                menuArray[i][4] = String.valueOf(jsonObject.getInt("price"));
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ad_menu = new Ad_Menu(this, getData(menuArray));
         recyclerview.setAdapter(ad_menu);
     }
 
-    private ArrayList<Food> getData() {
+    private class SearchMenu extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String retorno = WebService.buscaWS(strings[0]);
+            return retorno;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            setItensMenu(s);
+        }
+    }
+
+    private ArrayList<Food> getData(String[][] menuArray) {
 
         ArrayList<Food> arrayList = new ArrayList<>();
 
-        arrayList.add(new Food(R.drawable.fetuccine, "Fetuccine Alfredo", "Creme de leite fresco, queijo parmesão ralado e manteiga", 29));
-        arrayList.add(new Food(R.drawable.bolonhesa, "Macarrão à Bolonhesa", "Carne bovina moída, tomates, cebolas e semais temperos para compor um delicioso molho", 32));
-        arrayList.add(new Food(R.drawable.carbonara, "Macarrão Carbonara", "Ovos, bacon e queijo parmesão ralado", 32));
-        arrayList.add(new Food(R.drawable.molho_sugo, "Macarrão ao Molho Sugo", "Molho feito a base de tomates frescos e temperos", 28));
-        arrayList.add(new Food(R.drawable.nhoque_4_queijos, "Nhoque 4 Queijos", "Parmesão, provolone, mozzarella e gorgonzola", 34));
-        arrayList.add(new Food(R.drawable.nhoque_fughi, "Nhoque ao Molho Fughi", "Cogumelos Fughi, creme de leite e temperos frescos", 34));
+        // Percorrer o JSONArray
+        for (int i = 0; i < menuArray.length; i++) {
+
+            int url;
+
+            if (Objects.equals(menuArray[i][3], "R.drawable.fetuccine")) {
+                url = R.drawable.fetuccine;
+            } else if (menuArray[i][3].trim().equals("R.drawable.molho_sugo")) {
+                url = R.drawable.molho_sugo;
+            } else if (Objects.equals(menuArray[i][3], "R.drawable.nhoque_4_queijos")) {
+                url = R.drawable.nhoque_4_queijos;
+            } else if (Objects.equals(menuArray[i][3], "R.drawable.carbonara")) {
+                url = R.drawable.carbonara;
+            } else if (Objects.equals(menuArray[i][3], "R.drawable.nhoque_fughi")) {
+                url = R.drawable.nhoque_fughi;
+            }else{
+                System.out.println(menuArray[i][3]);
+                url = R.drawable.bolonhesa;
+            }
+
+            arrayList.add(new Food(url, menuArray[i][2], menuArray[i][1], Integer.parseInt(menuArray[i][4]), menuArray[i][0]));
+        }
+
         return arrayList;
     }
 

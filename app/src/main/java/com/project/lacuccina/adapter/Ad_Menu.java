@@ -35,13 +35,14 @@ public class Ad_Menu extends RecyclerView.Adapter<Holder_Menu> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder_Menu holder_arrivals, int position) {
+    public void onBindViewHolder(@NonNull Holder_Menu holder_menu, int position) {
         final Food food = data.get(position);
-        Glide.with(mContext).load(food.getUrlImage()).into(holder_arrivals.getImageView());
-        holder_arrivals.getTitle().setText(food.getTitle());
-        holder_arrivals.getBody().setText(food.getDesc());
-        holder_arrivals.getPrice().setText("R$ " + food.getPrice());
-        holder_arrivals.itemView.setOnClickListener(new View.OnClickListener() {
+        Glide.with(mContext).load(food.getUrlImage()).into(holder_menu.getImageView());
+        holder_menu.getTitle().setText(food.getTitle());
+        holder_menu.getBody().setText(food.getDesc());
+        holder_menu.getPrice().setText("R$ " + food.getPrice());
+        holder_menu.getPrice().setText(food.getId());
+        holder_menu.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProductCard.class);

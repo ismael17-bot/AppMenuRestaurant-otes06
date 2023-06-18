@@ -38,4 +38,10 @@
         android:layout_marginTop="4dp"
         android:textColor="@color/secondaryTextColor"
         android:textSize="14sp" />
+    <TextView
+        android:id="@+id/id_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="Texto invisível" />
 </LinearLayout>
