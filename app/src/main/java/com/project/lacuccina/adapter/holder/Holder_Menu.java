@@ -11,7 +11,7 @@ import com.project.lacuccina.R;
 public class Holder_Menu extends RecyclerView.ViewHolder {
 
     private ImageView imageView;
-    private TextView Title , Body , Price;
+    private TextView Title , Body , Price, Id;
 
     public Holder_Menu(@NonNull View itemView) {
         super(itemView);
@@ -19,6 +19,7 @@ public class Holder_Menu extends RecyclerView.ViewHolder {
         Title = itemView.findViewById(R.id.id_title_tx);
         Body = itemView.findViewById(R.id.id_body_tx);
         Price = itemView.findViewById(R.id.id_price);
+        Id = itemView.findViewById(R.id.id_item);
     }
 
     public ImageView getImageView() {
@@ -35,5 +36,9 @@ public class Holder_Menu extends RecyclerView.ViewHolder {
 
     public TextView getPrice() {
         return Price;
+    }
+
+    public TextView getId() {
+        return Id;
     }
 }
