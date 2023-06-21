@@ -1,5 +1,6 @@
 package com.projectapi.lacuccina.demo.model;
 
+import com.projectapi.lacuccina.demo.DTO.MenuRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,9 +18,9 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String mesa;
-    private String dtPedido;
-    private String hrPedido;
+    private String dtpedido;
+    private String hrpedido;
     private String status;
-    private int qtdItens;
+    private int qtditens;
     private float valor;
 }

@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "ITENS_PEDIDOS")
-@Entity(name = "ITENS_PEDIDOS")
+@Table(name = "ITENS_PEDIDO")
+@Entity(name = "ITENS_PEDIDO")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,8 +17,8 @@ public class ItensPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idPedido;
-    private Long idMenu;
-    private int qtdItem;
+    private Long idpedido;
+    private Long idmenu;
+    private int qtditem;
     private float valor;
 }
