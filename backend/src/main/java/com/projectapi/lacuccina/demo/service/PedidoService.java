@@ -33,7 +33,7 @@ public class PedidoService {
         return new PedidoDTO(optionalOrder.get());
     }
 
-    public void addToOrder(Long orderId, Long itemId, Integer qtd) {
+    public Long addToOrder(Long orderId, Long itemId, Integer qtd) {
         Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId != null ? orderId : -1);
         Optional<Menu> optionalItem = menuRepository.findById(itemId);
         Optional<ItensPedido> optionalItensPedido = itemPedidioRepository.findByIdpedidoAndIdmenu(orderId, itemId);
@@ -41,7 +41,6 @@ public class PedidoService {
 
         // Obs: Acredito que hora e data devam ser definidas na hora que finalizar o pedido
         // mas caso for na hora da primeira criação do pedido ou na atualização dele, colocar aqui tb
-
         if (optionalOrder.isPresent()) {
             Pedido order = optionalOrder.get();
             order.setQtditens(order.getQtditens() + qtd);
@@ -61,12 +60,13 @@ public class PedidoService {
                 itensPedido.setValor(item.getPrice()*qtd);
                 itemPedidioRepository.save(itensPedido);
             }
+            return orderId;
         } else {
             Pedido order = new Pedido();
             order.setValor(item.getPrice()*qtd);
             order.setQtditens(qtd);
             order.setMesa("25");//mesa fixa por enquanto
-            order.setStatus("Aguardando finalização (?)");
+            order.setStatus("Em andamento");
             pedidioRepository.save(order);
 
             ItensPedido itensPedido = new ItensPedido();
@@ -75,6 +75,8 @@ public class PedidoService {
             itensPedido.setQtditem(qtd);
             itensPedido.setValor(item.getPrice()*qtd);
             itemPedidioRepository.save(itensPedido);
+
+            return order.getId();
         }
     }
 

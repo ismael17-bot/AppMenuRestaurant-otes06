@@ -21,8 +21,9 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         setContentView(R.layout.activity_cart);
-
+        String idProduct = intent.getStringExtra("id_product");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

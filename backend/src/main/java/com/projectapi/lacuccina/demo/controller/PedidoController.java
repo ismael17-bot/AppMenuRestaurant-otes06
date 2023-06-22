@@ -25,12 +25,12 @@ public class PedidoController {
     }
 
     @PostMapping
-    public void addToOrder(@RequestBody PedidoRequestDTO pedido) {
-        pedidoService.addToOrder(pedido.id(), pedido.menuId(), pedido.qtd());
+    public Long addToOrder(@RequestBody PedidoRequestDTO pedido) {
+        return pedidoService.addToOrder(pedido.orderId(), pedido.menuId(), pedido.qtd());
     }
 
     @DeleteMapping
     public void removeFromOrder(@RequestBody PedidoRequestDTO pedido) {
-        pedidoService.removeFromOrder(pedido.id(), pedido.menuId());
+        pedidoService.removeFromOrder(pedido.orderId(), pedido.menuId());
     }
 }
