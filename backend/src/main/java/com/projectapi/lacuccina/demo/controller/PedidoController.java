@@ -29,6 +29,10 @@ public class PedidoController {
         return pedidoService.addToOrder(pedido.orderId(), pedido.menuId(), pedido.qtd());
     }
 
+    @PostMapping("/finish")
+    public Long closeOrder(@RequestBody PedidoRequestDTO pedido) {
+        return pedidoService.closeOrder(pedido.orderId());
+    }
     @DeleteMapping
     public void removeFromOrder(@RequestBody PedidoRequestDTO pedido) {
         pedidoService.removeFromOrder(pedido.orderId(), pedido.menuId());

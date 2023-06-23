@@ -11,6 +11,7 @@ import com.projectapi.lacuccina.demo.repository.PedidoRepository;
 import com.projectapi.lacuccina.demo.repository.ItemPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
 
 @Service
 public class PedidoService {
@@ -33,6 +34,26 @@ public class PedidoService {
         return new PedidoDTO(optionalOrder.get());
     }
 
+    public Long closeOrder(Long orderId){
+        Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId != null ? orderId : -1);
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+
+        int ano = dataHoraAtual.getYear();
+        int mes = dataHoraAtual.getMonthValue();
+        int dia = dataHoraAtual.getDayOfMonth();
+
+        int hora = dataHoraAtual.getHour();
+        int minuto = dataHoraAtual.getMinute();
+
+        Pedido order = optionalOrder.get();
+        order.setStatus("Em preparação");
+        order.setDtpedido(String.valueOf(ano)+String.valueOf(mes)+String.valueOf(dia));
+        order.setHrpedido(hora+":"+minuto);
+
+        pedidioRepository.save(order);
+
+        return orderId;
+    }
     public Long addToOrder(Long orderId, Long itemId, Integer qtd) {
         Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId != null ? orderId : -1);
         Optional<Menu> optionalItem = menuRepository.findById(itemId);
