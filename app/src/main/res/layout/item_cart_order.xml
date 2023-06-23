@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="190dp"
+    android:layout_height="210dp"
     android:layout_margin="8dp"
     android:background="@android:color/white"
     android:padding="8dp">
@@ -20,6 +20,7 @@
         android:layout_toRightOf="@+id/id_image_product">
 
         <LinearLayout
+            android:id="@+id/id_cancel_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toStartOf="@+id/id_image_cancel"
@@ -28,6 +29,7 @@
             android:orientation="vertical">
 
             <fontsproject.Raleway_Regular_TextView
+                android:id="@+id/id_title_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Fetuccine Alfredo"
@@ -36,6 +38,7 @@
                 android:textSize="18sp" />
 
             <fontsproject.Raleway_Regular_TextView
+                android:id="@+id/id_desc_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -44,6 +47,7 @@
                 android:textSize="16sp" />
 
             <fontsproject.Raleway_Regular_TextView
+                android:id="@+id/id_price_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -62,6 +66,7 @@
                 android:background="@drawable/background_linear_gray">
 
                 <ImageView
+                    android:id="@+id/id_less_btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -69,6 +74,7 @@
                     android:src="@drawable/ic_minus_2" />
 
                 <fontsproject.Raleway_Regular_TextView
+                    android:id="@+id/id_qtd_product"
                     android:layout_width="0dp"
                     android:text="1"
                     android:textSize="22sp"
@@ -77,6 +83,7 @@
                     android:gravity="center" />
 
                 <ImageView
+                    android:id="@+id/id_plus_btn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -97,6 +104,12 @@
             android:paddingTop="8dp"
             android:src="@drawable/ic_cancel" />
 
+        <TextView
+            android:id="@+id/id_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:text="Texto invisível" />
     </RelativeLayout>
 
 

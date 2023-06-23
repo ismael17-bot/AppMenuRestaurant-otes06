@@ -22,6 +22,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, MenuActivity.class);
+                intent.putExtra("orderId", "");
                 startActivity(intent);
             }
         });

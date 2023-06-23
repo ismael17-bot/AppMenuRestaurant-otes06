@@ -19,13 +19,15 @@ import java.util.ArrayList;
 
 public class Ad_Menu extends RecyclerView.Adapter<Holder_Menu> {
 
+    String orderId;
     Context mContext;
 
     ArrayList<Food> data;
 
-    public Ad_Menu(Context context, ArrayList<Food> data) {
+    public Ad_Menu(Context context, ArrayList<Food> data, String orderId) {
         this.mContext = context;
         this.data = data;
+        this.orderId = orderId;
     }
 
     @NonNull
@@ -48,6 +50,8 @@ public class Ad_Menu extends RecyclerView.Adapter<Holder_Menu> {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ProductCard.class);
                 intent.putExtra("id_product", food.getId());
+                intent.putExtra("orderId", orderId);
+
                 mContext.startActivity(intent);
             }
         });
