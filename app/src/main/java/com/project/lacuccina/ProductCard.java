@@ -38,10 +38,15 @@ public class ProductCard extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.activity_product_card);
         String idProduct = intent.getStringExtra("id_product");
-        String orderId = intent.getStringExtra("orderId");
+        orderId = intent.getStringExtra("orderId");
 
         SearchItem searchMenu = new SearchItem();
         searchMenu.execute("http://10.0.2.2:8081/menu/food/"+idProduct);
+
+        if(orderId != ""){
+            SearchQtd searchQtd = new SearchQtd();
+            searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
+        }
 
         TextView addButton;
         addButton = findViewById(R.id.id_add_to_cart);
@@ -112,6 +117,18 @@ public class ProductCard extends AppCompatActivity {
 
     }
 
+    public void setQtd(String pedido) {
+        TextView txtQtdPed = findViewById(R.id.id_order_count);
+
+        try {
+            JSONObject jsonObject = new JSONObject(pedido);
+            txtQtdPed.setText(jsonObject.getString("qtdItens"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private class SearchItem extends AsyncTask<String, String, String> {
 
         @Override
@@ -164,6 +181,21 @@ public class ProductCard extends AppCompatActivity {
                 intent.putExtra("orderId", clsGlobal.getIdPedido());
                 startActivity(intent);
             }
+        }
+    }
+
+    private class SearchQtd extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String retorno = WebService.buscaWS(strings[0]);
+            return retorno;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //System.out.println(s);
+            setQtd(s);
         }
     }
 

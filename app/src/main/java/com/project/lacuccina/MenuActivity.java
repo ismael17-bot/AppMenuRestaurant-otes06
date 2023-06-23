@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.project.lacuccina.adapter.Ad_Menu;
@@ -24,6 +25,7 @@ import java.util.Objects;
 
 public class MenuActivity extends AppCompatActivity {
 
+    private RelativeLayout checkout;
     RecyclerView recyclerview;
     GridLayoutManager gridLayoutManager;
     Ad_Menu ad_menu;
@@ -38,6 +40,11 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         orderId = intent.getStringExtra("orderId");
 
+        if(orderId != ""){
+            SearchQtd searchQtd = new SearchQtd();
+            searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,6 +56,16 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        checkout = findViewById(R.id.id_checkout);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, CartActivity.class);
+                intent.putExtra("orderId", orderId);
+                startActivity(intent);
+            }
+        });
+
         recyclerview = findViewById(R.id.recyclerview);
         gridLayoutManager = new GridLayoutManager(this, 1);
         recyclerview.setHasFixedSize(true);
@@ -57,6 +74,18 @@ public class MenuActivity extends AppCompatActivity {
 
         SearchMenu searchMenu = new SearchMenu();
         searchMenu.execute("http://10.0.2.2:8081/menu");
+
+    }
+
+    public void setQtd(String pedido) {
+        TextView txtQtdPed = findViewById(R.id.id_order_count);
+
+        try {
+            JSONObject jsonObject = new JSONObject(pedido);
+            txtQtdPed.setText(jsonObject.getString("qtdItens"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -127,4 +156,18 @@ public class MenuActivity extends AppCompatActivity {
         return arrayList;
     }
 
+    private class SearchQtd extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String retorno = WebService.buscaWS(strings[0]);
+            return retorno;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            //System.out.println(s);
+            setQtd(s);
+        }
+    }
 }
