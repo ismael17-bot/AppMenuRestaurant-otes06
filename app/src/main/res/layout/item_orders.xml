@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <fontsproject.Raleway_Regular_TextView
+            android:id="@+id/id_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pedido #756444"
@@ -22,6 +23,7 @@
             android:textSize="18sp" />
 
         <fontsproject.Raleway_Regular_TextView
+            android:id="@+id/id_status"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -30,6 +32,7 @@
             android:textSize="16sp" />
 
         <fontsproject.Raleway_Regular_TextView
+            android:id="@+id/id_qtd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -38,6 +41,7 @@
             android:textSize="16sp" />
 
         <fontsproject.Raleway_Regular_TextView
+            android:id="@+id/id_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -53,6 +57,7 @@
         android:theme="@style/RadioButtonTheme"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:text="Ver"
         android:layout_centerVertical="true" />
 
     <View

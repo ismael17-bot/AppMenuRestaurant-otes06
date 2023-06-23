@@ -15,18 +15,6 @@
         android:background="@android:color/white"
         android:theme="@style/Theme.Lacuccina.AppBarOverlay">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
-                app:popupTheme="@style/Theme.Lacuccina.PopupOverlay" />
-
-        </RelativeLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -44,6 +32,7 @@
         android:id="@+id/id_recycler_orders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="80dp"
         android:layout_below="@+id/id_Title_tx" />
 
     <Button

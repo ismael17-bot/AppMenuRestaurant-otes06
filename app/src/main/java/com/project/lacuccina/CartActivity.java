@@ -47,6 +47,8 @@ public class CartActivity extends AppCompatActivity {
         TextView id = findViewById(R.id.id_Title_tx);
         SearchCart searchCart = new SearchCart();
 
+        CloseOrder closeOrder = new CloseOrder();
+
         //searchCart.execute("http://10.0.2.2:8081/pedido/"+orderId);
         searchCart.execute("http://10.0.2.2:8081/menu");
 
@@ -71,6 +73,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
+                closeOrder.execute("http://10.0.2.2:8081/pedido/finish", orderId);
                 startActivity(intent);
             }
         });
@@ -109,6 +112,32 @@ public class CartActivity extends AppCompatActivity {
         ad_card_order = new Ad_Cart_Order(this, getData(cartArray), orderId);
         recyclerView.setAdapter(ad_card_order);
 
+    }
+
+    private class CloseOrder extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String idPedido = strings[1];
+            String requestUrl = strings[0];
+
+            // Para adicionar ao pedido
+            JSONObject postData = new JSONObject();
+
+            try {
+                postData.put("orderId", idPedido);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            String retorno = WebService.postWS(requestUrl, String.valueOf(postData));
+            return retorno;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            setItensMenu(s);
+        }
     }
 
     private class SearchCart extends AsyncTask<String, String, String> {
