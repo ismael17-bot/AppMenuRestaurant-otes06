@@ -81,51 +81,6 @@ public class PedidoService {
         return orderId;
     }
 
-    public Long alterOrder(Long orderId, Long itemId, Integer qtd) {
-        Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId);
-        Optional<Menu> optionalItem = menuRepository.findById(itemId);
-        Optional<ItensPedido> optionalItensPedido = itemPedidioRepository.findByIdpedidoAndIdmenu(orderId, itemId);
-        Menu item = optionalItem.get();
-
-        if (optionalOrder.isPresent()) {
-            Pedido order = optionalOrder.get();
-            order.setQtditens(order.getQtditens() + qtd);
-            order.setValor(order.getValor() + (item.getPrice()*qtd));
-            pedidioRepository.save(order);
-
-            if (optionalItensPedido.isPresent()) {
-                ItensPedido itensPedido = optionalItensPedido.get();
-                itensPedido.setQtditem(itensPedido.getQtditem() + qtd);
-                itensPedido.setValor(itensPedido.getValor() + (item.getPrice()*qtd));
-                itemPedidioRepository.save(itensPedido);
-            } else {
-                ItensPedido itensPedido = new ItensPedido();
-                itensPedido.setIdpedido(orderId);
-                itensPedido.setIdmenu(itemId);
-                itensPedido.setQtditem(qtd);
-                itensPedido.setValor(item.getPrice()*qtd);
-                itemPedidioRepository.save(itensPedido);
-            }
-            return orderId;
-        } else {
-            Pedido order = new Pedido();
-            order.setValor(item.getPrice()*qtd);
-            order.setQtditens(qtd);
-            order.setMesa("25");//mesa fixa por enquanto
-            order.setStatus("Em andamento");
-            pedidioRepository.save(order);
-
-            ItensPedido itensPedido = new ItensPedido();
-            itensPedido.setIdpedido(order.getId());
-            itensPedido.setIdmenu(itemId);
-            itensPedido.setQtditem(qtd);
-            itensPedido.setValor(item.getPrice()*qtd);
-            itemPedidioRepository.save(itensPedido);
-
-            return order.getId();
-        }
-    }
-
     public Long addToOrder(Long orderId, Long itemId, Integer qtd) {
         Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId != null ? orderId : -1);
         Optional<Menu> optionalItem = menuRepository.findById(itemId);
