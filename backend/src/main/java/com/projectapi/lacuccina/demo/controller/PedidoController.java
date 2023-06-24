@@ -1,5 +1,6 @@
 package com.projectapi.lacuccina.demo.controller;
 
+import com.projectapi.lacuccina.demo.DTO.ItensPedidoDTO;
 import com.projectapi.lacuccina.demo.DTO.PedidoDTO;
 import com.projectapi.lacuccina.demo.DTO.PedidoRequestDTO;
 import com.projectapi.lacuccina.demo.service.PedidoService;
@@ -24,6 +25,11 @@ public class PedidoController {
         return pedidoService.getOrder(id);
     }
 
+    @GetMapping("/items/{id}")
+    public List<ItensPedidoDTO> getItemOrderById(@PathVariable Long id) {
+        return pedidoService.getOrderItem(id);
+    }
+
     @PostMapping
     public Long addToOrder(@RequestBody PedidoRequestDTO pedido) {
         return pedidoService.addToOrder(pedido.orderId(), pedido.menuId(), pedido.qtd());
@@ -33,6 +39,7 @@ public class PedidoController {
     public Long closeOrder(@RequestBody PedidoRequestDTO pedido) {
         return pedidoService.closeOrder(pedido.orderId());
     }
+
     @DeleteMapping
     public void removeFromOrder(@RequestBody PedidoRequestDTO pedido) {
         pedidoService.removeFromOrder(pedido.orderId(), pedido.menuId());
