@@ -11,7 +11,7 @@ import com.project.lacuccina.R;
 public class Holder_Cart_Order extends RecyclerView.ViewHolder {
 
     private ImageView imageView;
-    private TextView Title , Body , Price, Id, Qtd;
+    private TextView Title , Body , Price, Id, Qtd, IdPedido;
 
     public Holder_Cart_Order(@NonNull View itemView) {
         super(itemView);
@@ -21,6 +21,7 @@ public class Holder_Cart_Order extends RecyclerView.ViewHolder {
         Price = itemView.findViewById(R.id.id_price_product);
         Id = itemView.findViewById(R.id.id_item);
         Qtd = itemView.findViewById(R.id.id_qtd_product);
+        IdPedido = itemView.findViewById(R.id.id_pedido);
     }
 
     public ImageView getImageView() {
@@ -45,6 +46,10 @@ public class Holder_Cart_Order extends RecyclerView.ViewHolder {
 
     public TextView getId() {
         return Id;
+    }
+
+    public TextView getIdPedido() {
+        return IdPedido;
     }
 }
 

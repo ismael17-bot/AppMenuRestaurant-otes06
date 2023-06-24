@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class ProductCard extends AppCompatActivity {
             searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
         }
 
+        EditText obsItem = findViewById(R.id.id_obs_item);
         TextView addButton;
         addButton = findViewById(R.id.id_add_to_cart);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,8 +76,10 @@ public class ProductCard extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String obs = obsItem.getText().toString();
                 SendItemOrder sendItemOrder = new SendItemOrder();
-                sendItemOrder.execute("http://10.0.2.2:8081/pedido", idProduct);
+
+                sendItemOrder.execute("http://10.0.2.2:8081/pedido", idProduct, obs);
             }
         });
 
@@ -150,6 +154,7 @@ public class ProductCard extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             String idProduct = strings[1];
             String requestUrl = strings[0];
+            String obsItem = strings[2];
 
             // Para adicionar ao pedido
             JSONObject postData = new JSONObject();
@@ -162,6 +167,7 @@ public class ProductCard extends AppCompatActivity {
                 }
                 postData.put("menuId", Integer.parseInt(idProduct));
                 postData.put("qtd", 1);
+                postData.put("obsItem", obsItem);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -1,6 +1,5 @@
 package com.project.lacuccina;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -8,32 +7,29 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.project.lacuccina.adapter.Ad_Cart_Order;
+import com.project.lacuccina.adapter.Ad_Order_View;
 
-import com.project.lacuccina.model.CartOrder;
+import com.project.lacuccina.model.ViewOrder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Objects;
 
-public class CartActivity extends AppCompatActivity {
+public class OrderViewActivity extends AppCompatActivity {
 
-    Ad_Cart_Order ad_card_order;
+    Ad_Order_View ad_order_view;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
-    Button  continueButton;
     Button  backButton;
     String orderId;
     String cartArray[][];
+    TextView titulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,46 +37,24 @@ public class CartActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         orderId = intent.getStringExtra("orderId");
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_order_view);
 
         SearchCart searchCart = new SearchCart();
 
-        CloseOrder closeOrder = new CloseOrder();
-
         searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
-        //searchCart.execute("http://10.0.2.2:8081/menu");
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         recyclerView = findViewById(R.id.id_recycler_view);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager =  new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
+        titulo = findViewById(R.id.id_Title_tx);
+        titulo.setText("Pedido #"+orderId);
 
-        continueButton = findViewById(R.id.id_continue);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
-                closeOrder.execute("http://10.0.2.2:8081/pedido/finish", orderId);
-                startActivity(intent);
-            }
-        });
-
-        backButton = findViewById(R.id.id_backMenu);
+        backButton = findViewById(R.id.id_backIni);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, MenuActivity.class);
+                Intent intent = new Intent(OrderViewActivity.this, OrdersActivity.class);
                 intent.putExtra("orderId", orderId);
                 startActivity(intent);
             }
@@ -90,7 +64,7 @@ public class CartActivity extends AppCompatActivity {
     public void setItensMenu(String menu) {
         try {
             JSONArray jsonArray = new JSONArray(menu);
-            cartArray = new String[jsonArray.length()][6];
+            cartArray = new String[jsonArray.length()][7];
             if(jsonArray.length() == 0){
                 TextView msgCart = findViewById(R.id.id_cart);
                 msgCart.setText("Carrinho Vazio!");
@@ -110,40 +84,14 @@ public class CartActivity extends AppCompatActivity {
                     cartArray[i][3] = jsonProduto.getString("description");
                     cartArray[i][4] = jsonProduto.getString("title");
                     cartArray[i][5] = String.valueOf(jsonProduto.getInt("price"));
+                    cartArray[i][6] = jsonPedido.getString("obsitem");
                 }
 
-                ad_card_order = new Ad_Cart_Order(this, getData(cartArray), orderId);
-                recyclerView.setAdapter(ad_card_order);
+                ad_order_view = new Ad_Order_View(this, getData(cartArray), orderId);
+                recyclerView.setAdapter(ad_order_view);
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    private class CloseOrder extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String idPedido = strings[1];
-            String requestUrl = strings[0];
-
-            // Para adicionar ao pedido
-            JSONObject postData = new JSONObject();
-
-            try {
-                postData.put("orderId", idPedido);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            String retorno = WebService.postWS(requestUrl, String.valueOf(postData));
-            return retorno;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            setItensMenu(s);
         }
     }
 
@@ -161,9 +109,9 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<CartOrder> getData(String[][] cartArray) {
+    private ArrayList<ViewOrder> getData(String[][] cartArray) {
 
-        ArrayList<CartOrder> arrayList = new ArrayList<>();
+        ArrayList<ViewOrder> arrayList = new ArrayList<>();
         // Percorrer o JSONArray
         for (int i = 0; i < cartArray.length; i++) {
 
@@ -183,7 +131,7 @@ public class CartActivity extends AppCompatActivity {
                 url = R.drawable.bolonhesa;
             }
 
-            arrayList.add(new CartOrder(url, cartArray[i][4], cartArray[i][3], Integer.parseInt(cartArray[i][5]), cartArray[i][0], Integer.parseInt(cartArray[i][1]), orderId));
+            arrayList.add(new ViewOrder(url, cartArray[i][4], cartArray[i][3], Integer.parseInt(cartArray[i][5]), cartArray[i][0], Integer.parseInt(cartArray[i][1]), orderId, cartArray[i][6]));
         }
 
         return arrayList;

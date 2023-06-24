@@ -1,6 +1,6 @@
 package com.project.lacuccina.model;
 
-public class CartOrder {
+public class ViewOrder {
 
     private int urlImage;
     private String Title;
@@ -8,9 +8,10 @@ public class CartOrder {
     private int Price;
     private String Id;
     private String IdPedido;
+    String ObsItem;
     private int Qtd;
 
-    public CartOrder(int urlImage, String title, String desc, int price, String id, int qtd, String idPedido) {
+    public ViewOrder(int urlImage, String title, String desc, int price, String id, int qtd, String idPedido, String obsItem) {
         this.urlImage = urlImage;
         Title = title;
         Desc = desc;
@@ -18,6 +19,7 @@ public class CartOrder {
         Id = id;
         Qtd = qtd;
         IdPedido = idPedido;
+        ObsItem = obsItem;
     }
 
     public int getUrlImage() {
@@ -46,6 +48,10 @@ public class CartOrder {
 
     public String getIdpedido() {
         return IdPedido;
+    }
+
+    public String getObsItem() {
+        return ObsItem;
     }
 }
 

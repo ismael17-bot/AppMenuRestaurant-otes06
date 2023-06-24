@@ -21,4 +21,5 @@ public class ItensPedido {
     private Long idmenu;
     private int qtditem;
     private float valor;
+    private String obsitem;
 }

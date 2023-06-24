@@ -32,7 +32,7 @@ public class PedidoController {
 
     @PostMapping
     public Long addToOrder(@RequestBody PedidoRequestDTO pedido) {
-        return pedidoService.addToOrder(pedido.orderId(), pedido.menuId(), pedido.qtd());
+        return pedidoService.addToOrder(pedido.orderId(), pedido.menuId(), pedido.qtd(), pedido.obsItem());
     }
 
     @PostMapping("/finish")

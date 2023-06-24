@@ -81,7 +81,7 @@ public class PedidoService {
         return orderId;
     }
 
-    public Long addToOrder(Long orderId, Long itemId, Integer qtd) {
+    public Long addToOrder(Long orderId, Long itemId, Integer qtd, String obsItem) {
         Optional<Pedido> optionalOrder = pedidioRepository.findById(orderId != null ? orderId : -1);
         Optional<Menu> optionalItem = menuRepository.findById(itemId);
         Optional<ItensPedido> optionalItensPedido = itemPedidioRepository.findByIdpedidoAndIdmenu(orderId, itemId);
@@ -96,6 +96,11 @@ public class PedidoService {
             if (optionalItensPedido.isPresent()) {
                 ItensPedido itensPedido = optionalItensPedido.get();
                 itensPedido.setQtditem(itensPedido.getQtditem() + qtd);
+                if(obsItem.equals("")){
+                    itensPedido.setObsitem(itensPedido.getObsitem());
+                }else{
+                    itensPedido.setObsitem(obsItem);
+                }
                 itensPedido.setValor(itensPedido.getValor() + (item.getPrice()*qtd));
                 itemPedidioRepository.save(itensPedido);
             } else {
@@ -103,6 +108,7 @@ public class PedidoService {
                 itensPedido.setIdpedido(orderId);
                 itensPedido.setIdmenu(itemId);
                 itensPedido.setQtditem(qtd);
+                itensPedido.setObsitem(obsItem);
                 itensPedido.setValor(item.getPrice()*qtd);
                 itemPedidioRepository.save(itensPedido);
             }
@@ -119,6 +125,7 @@ public class PedidoService {
             itensPedido.setIdpedido(order.getId());
             itensPedido.setIdmenu(itemId);
             itensPedido.setQtditem(qtd);
+            itensPedido.setObsitem(obsItem);
             itensPedido.setValor(item.getPrice()*qtd);
             itemPedidioRepository.save(itensPedido);
 

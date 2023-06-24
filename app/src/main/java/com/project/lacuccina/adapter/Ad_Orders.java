@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.project.lacuccina.CartActivity;
+import com.project.lacuccina.OrderViewActivity;
 import com.project.lacuccina.ProductCard;
 import com.project.lacuccina.R;
 import com.materialuiux.store.adapter.holder.Holder_Orders;
@@ -50,7 +52,7 @@ public class Ad_Orders extends RecyclerView.Adapter<Holder_Orders> {
         viewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ProductCard.class);
+                Intent intent = new Intent(mContext, OrderViewActivity.class);
                 intent.putExtra("orderId", orders.getOrderId());
 
                 mContext.startActivity(intent);

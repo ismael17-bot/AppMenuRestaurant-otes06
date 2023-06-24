@@ -147,6 +147,7 @@
                         android:layout_weight="1">
 
                         <fontsproject.Raleway_Regular_EditText
+                            android:id="@+id/id_obs_item"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"

@@ -93,4 +93,49 @@ public class WebService extends AppCompatActivity {
 
         return retorno;
     }
+    public static String delWS(String cEndPoint, String cBody) {
+        HttpURLConnection connection = null;
+
+        String retorno = "";
+
+        try {
+
+            URL url = new URL(cEndPoint);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setRequestMethod("DELETE");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setChunkedStreamingMode(0);
+
+            OutputStream out = new BufferedOutputStream(connection.getOutputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                    out, "UTF-8"));
+            writer.write(cBody.toString());
+            writer.flush();
+
+            int code = connection.getResponseCode();
+            if (code !=  200) {
+                throw new IOException("Invalid response from server: " + code);
+            }
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                retorno = line;
+            }
+            return retorno;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+
+        return retorno;
+    }
 }

@@ -5,12 +5,14 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.google.android.things.permission.USE_PERIPHERAL_IO" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -18,40 +20,42 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
     <application
-        android:allowBackup="true"
         android:name=".Global"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lacuccina"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+        <activity
+            android:name=".OrderViewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ProductCard"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".OrdersActivity"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".CartActivity"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".MenuActivity"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".CallWaiter"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".SignInActivity"
-            android:theme="@style/Theme.Lacuccina.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
             android:name=".SplashActivity"
             android:exported="true">
