@@ -1,8 +1,10 @@
 package com.projectapi.lacuccina.demo.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.projectapi.lacuccina.demo.DTO.ItensPedidoDTO;
+import com.projectapi.lacuccina.demo.DTO.MenuDTO;
 import com.projectapi.lacuccina.demo.DTO.PedidoDTO;
 import com.projectapi.lacuccina.demo.model.ItensPedido;
 import com.projectapi.lacuccina.demo.model.Menu;
@@ -13,6 +15,7 @@ import com.projectapi.lacuccina.demo.repository.ItemPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @Service
 public class PedidoService {
@@ -36,8 +39,25 @@ public class PedidoService {
     }
 
     public List<ItensPedidoDTO> getOrderItem(Long id) {
-        List<ItensPedidoDTO> ordersList = itemPedidioRepository.findByIdpedido(id).stream().map(ItensPedidoDTO::new).toList();
-        return ordersList;
+        List<ItensPedido> itemList = itemPedidioRepository.findByIdpedido(id);
+        List<Long> produtoIds = itemList.stream()
+                .map(ItensPedido::getIdmenu)
+                .collect(Collectors.toList());
+        List<MenuDTO> produtos = menuRepository.findByIdIn(produtoIds);
+
+        List<ItensPedidoDTO> itemDTOList = new ArrayList<>();
+        for (ItensPedido item : itemList) {
+            Optional<MenuDTO> optionalProduto = produtos.stream()
+                    .filter(produto -> produto.id().equals(item.getIdmenu()))
+                    .findFirst();
+
+            optionalProduto.ifPresent(produto -> {
+                ItensPedidoDTO itemDTO = new ItensPedidoDTO(item, produto);
+                itemDTOList.add(itemDTO);
+            });
+        }
+
+        return itemDTOList;
     }
 
     public Long closeOrder(Long orderId){

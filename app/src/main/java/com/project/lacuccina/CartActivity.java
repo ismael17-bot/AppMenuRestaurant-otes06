@@ -14,16 +14,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.project.lacuccina.adapter.Ad_Cart_Order;
-import com.project.lacuccina.adapter.Ad_Menu;
-import com.project.lacuccina.adapter.Ad_Orders;
+
 import com.project.lacuccina.model.CartOrder;
-import com.project.lacuccina.model.Food;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity {
@@ -49,8 +48,8 @@ public class CartActivity extends AppCompatActivity {
 
         CloseOrder closeOrder = new CloseOrder();
 
-        //searchCart.execute("http://10.0.2.2:8081/pedido/"+orderId);
-        searchCart.execute("http://10.0.2.2:8081/menu");
+        searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
+        //searchCart.execute("http://10.0.2.2:8081/menu");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -92,18 +91,23 @@ public class CartActivity extends AppCompatActivity {
     public void setItensMenu(String menu) {
         try {
             JSONArray jsonArray = new JSONArray(menu);
-            cartArray = new String[jsonArray.length()][5];
+            cartArray = new String[jsonArray.length()][6];
+
             // Percorrer o JSONArray
             for (int i = 0; i < jsonArray.length(); i++) {
-
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                // Extrair os valores dos campos do objeto 'pedido'
+                JSONObject jsonPedido = jsonObject.getJSONObject("pedido");
 
-                cartArray[i][0] = String.valueOf(jsonObject.getInt("id"));
-                cartArray[i][1] = jsonObject.getString("description");
-                cartArray[i][2] = jsonObject.getString("title");
-                cartArray[i][3] = jsonObject.getString("url");
-                cartArray[i][4] = String.valueOf(jsonObject.getInt("price"));
+                // Extrair os valores dos campos do objeto 'produto'
+                JSONObject jsonProduto = jsonObject.getJSONObject("produto");
 
+                cartArray[i][0] = String.valueOf(jsonPedido.getInt("idmenu"));
+                cartArray[i][1] = String.valueOf(jsonPedido.getInt("qtditem"));
+                cartArray[i][2] = jsonProduto.getString("url");
+                cartArray[i][3] = jsonProduto.getString("description");
+                cartArray[i][4] = jsonProduto.getString("title");
+                cartArray[i][5] = String.valueOf(jsonProduto.getInt("price"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -111,8 +115,8 @@ public class CartActivity extends AppCompatActivity {
 
         ad_card_order = new Ad_Cart_Order(this, getData(cartArray), orderId);
         recyclerView.setAdapter(ad_card_order);
-
     }
+
 
     private class CloseOrder extends AsyncTask<String, String, String> {
 
@@ -157,27 +161,26 @@ public class CartActivity extends AppCompatActivity {
     private ArrayList<CartOrder> getData(String[][] cartArray) {
 
         ArrayList<CartOrder> arrayList = new ArrayList<>();
-
         // Percorrer o JSONArray
         for (int i = 0; i < cartArray.length; i++) {
 
             int url;
 
-            if (Objects.equals(cartArray[i][3], "R.drawable.fetuccine")) {
+            if (cartArray[i][2].equals("R.drawable.fetuccine")) {
                 url = R.drawable.fetuccine;
-            } else if (cartArray[i][3].trim().equals("R.drawable.molho_sugo")) {
+            } else if (cartArray[i][2].equals("R.drawable.molho_sugo")) {
                 url = R.drawable.molho_sugo;
-            } else if (Objects.equals(cartArray[i][3], "R.drawable.nhoque_4_queijos")) {
+            } else if (cartArray[i][2].equals("R.drawable.nhoque_4_queijos")) {
                 url = R.drawable.nhoque_4_queijos;
-            } else if (Objects.equals(cartArray[i][3], "R.drawable.carbonara")) {
+            } else if (cartArray[i][2].equals("R.drawable.carbonara")) {
                 url = R.drawable.carbonara;
-            } else if (Objects.equals(cartArray[i][3], "R.drawable.nhoque_fughi")) {
+            } else if (cartArray[i][2].equals("R.drawable.nhoque_fughi")) {
                 url = R.drawable.nhoque_fughi;
             }else{
                 url = R.drawable.bolonhesa;
             }
 
-            arrayList.add(new CartOrder(url, cartArray[i][2], cartArray[i][1], Integer.parseInt(cartArray[i][4]), cartArray[i][0], 2));
+            arrayList.add(new CartOrder(url, cartArray[i][4], cartArray[i][3], Integer.parseInt(cartArray[i][5]), cartArray[i][0], Integer.parseInt(cartArray[i][1])));
         }
 
         return arrayList;
