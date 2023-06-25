@@ -46,7 +46,7 @@ public class ProductCard extends AppCompatActivity {
         searchMenu.execute("http://10.0.2.2:8081/menu/food/"+idProduct);
 
         //Busca quantidade no carrinho pro ícone
-        if(orderId != ""){
+        if(!orderId.equals("")) {
             SearchQtd searchQtd = new SearchQtd();
             searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
         }
@@ -150,7 +150,6 @@ public class ProductCard extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //System.out.println(s);
             setItensMenu(s);
         }
     }
@@ -168,7 +167,7 @@ public class ProductCard extends AppCompatActivity {
             JSONObject postData = new JSONObject();
 
             try {
-                if(orderId == ""){
+                if(orderId.equals("")){
                     postData.put("orderId", JSONObject.NULL);
                 }else{
                     postData.put("orderId", clsGlobal.getIdPedido());
