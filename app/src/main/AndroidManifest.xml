@@ -51,9 +51,6 @@
             android:name=".MenuActivity"
             android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity
-            android:name=".CallWaiter"
-            android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
-        <activity
             android:name=".SignInActivity"
             android:theme="@style/Theme.Lacuccina.NoActionBar"></activity>
         <activity

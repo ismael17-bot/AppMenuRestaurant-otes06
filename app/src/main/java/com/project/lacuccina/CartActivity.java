@@ -41,14 +41,15 @@ public class CartActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         orderId = intent.getStringExtra("orderId");
+
         setContentView(R.layout.activity_cart);
 
         SearchCart searchCart = new SearchCart();
 
         CloseOrder closeOrder = new CloseOrder();
 
+        //Chamada da tarefa de busca dos itens do pedido
         searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
-        //searchCart.execute("http://10.0.2.2:8081/menu");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +67,7 @@ public class CartActivity extends AppCompatActivity {
         linearLayoutManager =  new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        //Finalizar o pedido
         continueButton = findViewById(R.id.id_continue);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,7 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        //Voltar ao menu
         backButton = findViewById(R.id.id_backMenu);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +90,7 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    //Função que seta os itens retornados do GET de Itens do Pedido
     public void setItensMenu(String menu) {
         try {
             JSONArray jsonArray = new JSONArray(menu);
@@ -112,6 +116,7 @@ public class CartActivity extends AppCompatActivity {
                     cartArray[i][5] = String.valueOf(jsonProduto.getInt("price"));
                 }
 
+                //Inclui na visualização dinâmica de itens do pedido
                 ad_card_order = new Ad_Cart_Order(this, getData(cartArray), orderId);
                 recyclerView.setAdapter(ad_card_order);
             }
@@ -120,7 +125,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-
+    //Função para requisitar o POST de finalização do pedido
     private class CloseOrder extends AsyncTask<String, String, String> {
 
         @Override
@@ -147,6 +152,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    //Função para requisitar o GET de itens do pedido
     private class SearchCart extends AsyncTask<String, String, String> {
 
         @Override
@@ -161,6 +167,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    //Função que monta o Array de itens que serão incluído na listagem
     private ArrayList<CartOrder> getData(String[][] cartArray) {
 
         ArrayList<CartOrder> arrayList = new ArrayList<>();

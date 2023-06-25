@@ -40,6 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         orderId = intent.getStringExtra("orderId");
 
+        //Busca da quantidade de itens no pedido para atualizar o ícone do carrinho
         if(orderId != ""){
             SearchQtd searchQtd = new SearchQtd();
             searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
@@ -56,6 +57,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        //Visualizar carrinho
         checkout = findViewById(R.id.id_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +74,13 @@ public class MenuActivity extends AppCompatActivity {
         recyclerview.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
+        //Requisição de itens do menu
         SearchMenu searchMenu = new SearchMenu();
         searchMenu.execute("http://10.0.2.2:8081/menu");
 
     }
 
+    //Seta a quantidade do ícone do carrinho
     public void setQtd(String pedido) {
         TextView txtQtdPed = findViewById(R.id.id_order_count);
 
@@ -89,6 +93,7 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
+    //Recebe o retorno do GET de itens do menu
     public void setItensMenu(String menu) {
         try {
             JSONArray jsonArray = new JSONArray(menu);
@@ -113,6 +118,7 @@ public class MenuActivity extends AppCompatActivity {
         recyclerview.setAdapter(ad_menu);
     }
 
+    //Requisição assíncrona GET de itens do menu
     private class SearchMenu extends AsyncTask<String, String, String>{
 
         @Override
@@ -127,6 +133,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
+    //Monta o array para a visualização dos itens do menu
     private ArrayList<Food> getData(String[][] menuArray) {
 
         ArrayList<Food> arrayList = new ArrayList<>();
@@ -156,6 +163,7 @@ public class MenuActivity extends AppCompatActivity {
         return arrayList;
     }
 
+    //Requisiçõ GET da quntidade de itens do pedido
     private class SearchQtd extends AsyncTask<String, String, String> {
 
         @Override
@@ -166,7 +174,6 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //System.out.println(s);
             setQtd(s);
         }
     }

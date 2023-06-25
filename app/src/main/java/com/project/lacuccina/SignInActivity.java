@@ -8,16 +8,17 @@ import android.widget.Button;
 
 public class SignInActivity extends AppCompatActivity {
 
-    Button Waiter;
+    Button Orders;
     Button Menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        Waiter = findViewById(R.id.id_Waiter);
+        Orders = findViewById(R.id.id_Orders);
         Menu = findViewById(R.id.id_Menu);
 
+        //Abre o menu
         Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,7 +28,8 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        Waiter.setOnClickListener(new View.OnClickListener() {
+        //Abre os pedidos finalizados
+        Orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, OrdersActivity.class);

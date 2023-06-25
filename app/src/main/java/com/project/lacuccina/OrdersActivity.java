@@ -43,6 +43,7 @@ public class OrdersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         buttonContinue = findViewById(R.id.id_continue);
 
+        //Chama o menu
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,10 +53,12 @@ public class OrdersActivity extends AppCompatActivity {
             }
         });
 
+        //Chamada da função de busca de pedidos
         SearchOrders searchOrders = new SearchOrders();
         searchOrders.execute("http://10.0.2.2:8081/pedido");
     }
 
+    //Seta o retorno de pedidos
     public void setOrders(String menu) {
 
         try {
@@ -82,6 +85,7 @@ public class OrdersActivity extends AppCompatActivity {
 
                 String status = jsonObject.getString("status").trim();
 
+                //Seta apenas pedidos finalizados
                 if(status.equals("Em preparação")){
 
                     ordersArray[nCtd][0] = String.valueOf(jsonObject.getInt("id"));
@@ -99,6 +103,7 @@ public class OrdersActivity extends AppCompatActivity {
         recyclerView.setAdapter(ad_orders);
     }
 
+    //Requisição GET de pedidos
     private class SearchOrders extends AsyncTask<String, String, String> {
 
         @Override
@@ -113,6 +118,7 @@ public class OrdersActivity extends AppCompatActivity {
         }
     }
 
+    //Monta o array de pedidos para visualização
     private ArrayList<Orders> getData(String[][] ordersArray) {
 
         ArrayList<Orders> arrayList = new ArrayList<>();

@@ -30,10 +30,10 @@ public class ProductCard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Seto contexto:
+        // Seta contexto:
         cntMain = getApplicationContext();
 
-        // Abro classes gerais:
+        // Abre classe global:
         clsGlobal = (Global) cntMain;
 
         Intent intent = getIntent();
@@ -41,9 +41,11 @@ public class ProductCard extends AppCompatActivity {
         String idProduct = intent.getStringExtra("id_product");
         orderId = intent.getStringExtra("orderId");
 
+        //Busca vizualização do item
         SearchItem searchMenu = new SearchItem();
         searchMenu.execute("http://10.0.2.2:8081/menu/food/"+idProduct);
 
+        //Busca quantidade no carrinho pro ícone
         if(orderId != ""){
             SearchQtd searchQtd = new SearchQtd();
             searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
@@ -63,6 +65,7 @@ public class ProductCard extends AppCompatActivity {
             }
         });
 
+        //Abre o carrinho
         checkout = findViewById(R.id.id_checkout);
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +76,7 @@ public class ProductCard extends AppCompatActivity {
             }
         });
 
+        //Adiciona item no carrinho/pedido
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +89,7 @@ public class ProductCard extends AppCompatActivity {
 
     }
 
+    //Recebe o retorno do GET de item
     public void setItensMenu(String menu) {
         ImageView imageView = findViewById(R.id.id_img_item);
         TextView txtTitulo = findViewById(R.id.id_Product_Name);
@@ -121,6 +126,7 @@ public class ProductCard extends AppCompatActivity {
 
     }
 
+    //Seta a quantidade no carrinho
     public void setQtd(String pedido) {
         TextView txtQtdPed = findViewById(R.id.id_order_count);
 
@@ -133,6 +139,7 @@ public class ProductCard extends AppCompatActivity {
 
     }
 
+    //Requisição GET infos do item
     private class SearchItem extends AsyncTask<String, String, String> {
 
         @Override
@@ -148,6 +155,7 @@ public class ProductCard extends AppCompatActivity {
         }
     }
 
+    //Inclui item no pedido/carrinho
     private class SendItemOrder extends AsyncTask<String, String, String>{
 
         @Override
@@ -190,6 +198,7 @@ public class ProductCard extends AppCompatActivity {
         }
     }
 
+    //Requisição GET da quantidade
     private class SearchQtd extends AsyncTask<String, String, String> {
 
         @Override
@@ -200,7 +209,6 @@ public class ProductCard extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            //System.out.println(s);
             setQtd(s);
         }
     }

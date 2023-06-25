@@ -20,6 +20,7 @@ import java.net.URL;
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 public class WebService extends AppCompatActivity {
 
+    //Função para requisição GET
     public static String buscaWS(String cEndPoint) {
         String cRetorno = "ERRO: Não reconhecido";
         BufferedReader bufferedReader = null;
@@ -48,6 +49,7 @@ public class WebService extends AppCompatActivity {
         return cRetorno;
     }
 
+    //Função para requisição POST
     public static String postWS(String cEndPoint, String cBody) {
         HttpURLConnection connection = null;
 
@@ -93,6 +95,8 @@ public class WebService extends AppCompatActivity {
 
         return retorno;
     }
+
+    //Função para requisição DELETE
     public static String delWS(String cEndPoint, String cBody) {
         HttpURLConnection connection = null;
 

@@ -31,7 +31,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/id_Waiter"
+            android:id="@+id/id_Orders"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

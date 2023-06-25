@@ -41,8 +41,8 @@ public class OrderViewActivity extends AppCompatActivity {
         orderId = intent.getStringExtra("orderId");
         setContentView(R.layout.activity_order_view);
 
+        //Chama a requisição dos itens do pedido
         SearchCart searchCart = new SearchCart();
-
         searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
 
         recyclerView = findViewById(R.id.id_recycler_view);
@@ -52,6 +52,7 @@ public class OrderViewActivity extends AppCompatActivity {
         titulo = findViewById(R.id.id_Title_tx);
         titulo.setText("Pedido #"+orderId);
 
+        //Volta para a listagem de pedidos
         backButton = findViewById(R.id.id_backIni);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +64,7 @@ public class OrderViewActivity extends AppCompatActivity {
         });
     }
 
+    //Seta os itens do pedido
     public void setItensMenu(String menu) {
         try {
             JSONArray jsonArray = new JSONArray(menu);
@@ -97,6 +99,7 @@ public class OrderViewActivity extends AppCompatActivity {
         }
     }
 
+    //Requisição GET dos itens
     private class SearchCart extends AsyncTask<String, String, String> {
 
         @Override
@@ -111,6 +114,7 @@ public class OrderViewActivity extends AppCompatActivity {
         }
     }
 
+    //Seta o array pra preencher a listagem
     private ArrayList<ViewOrder> getData(String[][] cartArray) {
 
         ArrayList<ViewOrder> arrayList = new ArrayList<>();

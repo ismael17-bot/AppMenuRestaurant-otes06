@@ -51,6 +51,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder_Cart_Order holder_cart_order, int i) {
+        //Seta infos na visualição
         final CartOrder cart = data.get(i);
         Glide.with(mContext).load(cart.getUrlImage()).into(holder_cart_order.getImageView());
         holder_cart_order.getTitle().setText(cart.getTitle());
@@ -64,6 +65,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
         ImageView plusBtn = holder_cart_order.itemView.findViewById(R.id.id_plus_btn);
         ImageView cancelBtn = holder_cart_order.itemView.findViewById(R.id.id_image_cancel);
 
+        //Retira um item do pedido
         lessBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +90,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
             }
         });
 
+        //Adiciona um item no pedido
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +105,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
             }
         });
 
+        //Retira um item do pedido
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
