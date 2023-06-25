@@ -8,15 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.project.lacuccina.CartActivity;
 import com.project.lacuccina.OrderViewActivity;
-import com.project.lacuccina.ProductCard;
+
 import com.project.lacuccina.R;
-import com.materialuiux.store.adapter.holder.Holder_Orders;
-import com.project.lacuccina.model.Food;
+import com.project.lacuccina.adapter.holder.Holder_Orders;
+
 import com.project.lacuccina.model.Orders;
 
 import java.util.ArrayList;

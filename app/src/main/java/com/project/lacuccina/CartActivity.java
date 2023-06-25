@@ -34,10 +34,17 @@ public class CartActivity extends AppCompatActivity {
     Button  backButton;
     String orderId;
     String cartArray[][];
+    Global clsGlobal;
+    Context cntMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Seta contexto:
+        cntMain = getApplicationContext();
+
+        // Abre classe global:
+        clsGlobal = (Global) cntMain;
 
         Intent intent = getIntent();
         orderId = intent.getStringExtra("orderId");
@@ -49,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
         CloseOrder closeOrder = new CloseOrder();
 
         //Chamada da tarefa de busca dos itens do pedido
-        searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
+        searchCart.execute(clsGlobal.getIdEndere()+"pedido/items/"+orderId);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,7 +80,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CartActivity.this, OrdersActivity.class);
-                closeOrder.execute("http://10.0.2.2:8081/pedido/finish", orderId);
+                closeOrder.execute(clsGlobal.getIdEndere()+"pedido/finish", orderId);
                 startActivity(intent);
             }
         });

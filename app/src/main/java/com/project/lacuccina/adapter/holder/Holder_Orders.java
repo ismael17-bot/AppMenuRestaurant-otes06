@@ -1,5 +1,4 @@
-package com.materialuiux.store.adapter.holder;
-
+package com.project.lacuccina.adapter.holder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

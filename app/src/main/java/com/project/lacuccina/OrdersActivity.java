@@ -1,5 +1,6 @@
 package com.project.lacuccina;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -31,10 +32,18 @@ public class OrdersActivity extends AppCompatActivity {
     Ad_Orders ad_orders;
     Button buttonContinue;
     String[][] ordersArray;
+    Global clsGlobal;
+    Context cntMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Seta contexto:
+        cntMain = getApplicationContext();
+
+        // Abre classe global:
+        clsGlobal = (Global) cntMain;
+
         setContentView(R.layout.activity_orders);
 
         recyclerView = findViewById(R.id.id_recycler_orders);
@@ -55,7 +64,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         //Chamada da função de busca de pedidos
         SearchOrders searchOrders = new SearchOrders();
-        searchOrders.execute("http://10.0.2.2:8081/pedido");
+        searchOrders.execute(clsGlobal.getIdEndere()+"pedido");
     }
 
     //Seta o retorno de pedidos

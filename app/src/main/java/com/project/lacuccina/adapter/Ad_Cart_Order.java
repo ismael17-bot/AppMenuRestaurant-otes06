@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.project.lacuccina.CartActivity;
+import com.project.lacuccina.Global;
 import com.project.lacuccina.MenuActivity;
 import com.project.lacuccina.ProductCard;
 import com.project.lacuccina.R;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
     String orderId;
     Context mContext;
+    Global clsGlobal;
+    Context cntMain;
 
     ArrayList<CartOrder> data;
 
@@ -51,6 +54,12 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder_Cart_Order holder_cart_order, int i) {
+        // Seta contexto:
+        cntMain = mContext.getApplicationContext();
+
+        // Abre classe global:
+        clsGlobal = (Global) cntMain;
+
         //Seta infos na visualição
         final CartOrder cart = data.get(i);
         Glide.with(mContext).load(cart.getUrlImage()).into(holder_cart_order.getImageView());
@@ -73,14 +82,14 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
                 holder_cart_order.getQtd().setText(" " + newQtd);
                 if(0 == newQtd){
                     DelItem delItem = new DelItem();
-                    delItem.execute("http://10.0.2.2:8081/pedido", orderId, cart.getId());
+                    delItem.execute(clsGlobal.getIdEndere()+"pedido", orderId, cart.getId());
 
                     Intent intent = new Intent(mContext, CartActivity.class);
                     intent.putExtra("orderId", orderId);
                     mContext.startActivity(intent);
                 }else{
                     AlterItem alterItem = new AlterItem();
-                    alterItem.execute("http://10.0.2.2:8081/pedido", orderId, cart.getId(), "less");
+                    alterItem.execute(clsGlobal.getIdEndere()+"pedido", orderId, cart.getId(), "less");
 
                     Intent intent = new Intent(mContext, CartActivity.class);
                     intent.putExtra("orderId", orderId);
@@ -97,7 +106,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
                 int newQtd =  cart.getQtd() + 1;
                 holder_cart_order.getQtd().setText(" " + newQtd);
                 AlterItem alterItem = new AlterItem();
-                alterItem.execute("http://10.0.2.2:8081/pedido", orderId, cart.getId(), "plus");
+                alterItem.execute(clsGlobal.getIdEndere()+"pedido", orderId, cart.getId(), "plus");
 
                 Intent intent = new Intent(mContext, CartActivity.class);
                 intent.putExtra("orderId", orderId);
@@ -110,7 +119,7 @@ public class Ad_Cart_Order extends RecyclerView.Adapter<Holder_Cart_Order> {
             @Override
             public void onClick(View v) {
                 DelItem delItem = new DelItem();
-                delItem.execute("http://10.0.2.2:8081/pedido", orderId, cart.getId());
+                delItem.execute(clsGlobal.getIdEndere()+"pedido", orderId, cart.getId());
 
                 Intent intent = new Intent(mContext, CartActivity.class);
                 intent.putExtra("orderId", orderId);

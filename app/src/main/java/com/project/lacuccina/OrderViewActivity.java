@@ -1,5 +1,6 @@
 package com.project.lacuccina;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -32,10 +33,17 @@ public class OrderViewActivity extends AppCompatActivity {
     String orderId;
     String cartArray[][];
     TextView titulo;
+    Global clsGlobal;
+    Context cntMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Seta contexto:
+        cntMain = getApplicationContext();
+
+        // Abre classe global:
+        clsGlobal = (Global) cntMain;
 
         Intent intent = getIntent();
         orderId = intent.getStringExtra("orderId");
@@ -43,7 +51,7 @@ public class OrderViewActivity extends AppCompatActivity {
 
         //Chama a requisição dos itens do pedido
         SearchCart searchCart = new SearchCart();
-        searchCart.execute("http://10.0.2.2:8081/pedido/items/"+orderId);
+        searchCart.execute(clsGlobal.getIdEndere()+"pedido/items/"+orderId);
 
         recyclerView = findViewById(R.id.id_recycler_view);
         recyclerView.setHasFixedSize(true);

@@ -9,6 +9,7 @@ import android.util.Log;
 public class Global extends Application {
     // Controle do idPedido para uso na visualização do item do menu
     public String idPedido = "";
+    public String cIpEndere = "http://10.0.2.2:8081/";
 
     public void setIdPedido(String id){
         idPedido = id;
@@ -18,4 +19,7 @@ public class Global extends Application {
         return idPedido;
     }
 
+    public String getIdEndere(){
+        return cIpEndere;
+    }
 }

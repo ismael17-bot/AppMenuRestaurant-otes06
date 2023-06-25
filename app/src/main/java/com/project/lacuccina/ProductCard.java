@@ -43,12 +43,12 @@ public class ProductCard extends AppCompatActivity {
 
         //Busca vizualização do item
         SearchItem searchMenu = new SearchItem();
-        searchMenu.execute("http://10.0.2.2:8081/menu/food/"+idProduct);
+        searchMenu.execute(clsGlobal.getIdEndere()+"menu/food/"+idProduct);
 
         //Busca quantidade no carrinho pro ícone
         if(!orderId.equals("")) {
             SearchQtd searchQtd = new SearchQtd();
-            searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
+            searchQtd.execute(clsGlobal.getIdEndere()+"pedido/"+orderId);
         }
 
         EditText obsItem = findViewById(R.id.id_obs_item);
@@ -83,7 +83,7 @@ public class ProductCard extends AppCompatActivity {
                 String obs = obsItem.getText().toString();
                 SendItemOrder sendItemOrder = new SendItemOrder();
 
-                sendItemOrder.execute("http://10.0.2.2:8081/pedido", idProduct, obs);
+                sendItemOrder.execute(clsGlobal.getIdEndere()+"pedido", idProduct, obs);
             }
         });
 

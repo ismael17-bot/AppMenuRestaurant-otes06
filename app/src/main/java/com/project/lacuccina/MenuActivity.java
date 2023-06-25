@@ -1,5 +1,6 @@
 package com.project.lacuccina;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -31,19 +32,27 @@ public class MenuActivity extends AppCompatActivity {
     Ad_Menu ad_menu;
     String[][] menuArray;
     String orderId;
+    Global clsGlobal;
+    Context cntMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Seta contexto:
+        cntMain = getApplicationContext();
+
+        // Abre classe global:
+        clsGlobal = (Global) cntMain;
 
         Intent intent = getIntent();
         setContentView(R.layout.activity_menu);
         orderId = intent.getStringExtra("orderId");
 
         //Busca da quantidade de itens no pedido para atualizar o ícone do carrinho
-        if(orderId != ""){
+        if(!orderId.equals("")){
             SearchQtd searchQtd = new SearchQtd();
-            searchQtd.execute("http://10.0.2.2:8081/pedido/"+orderId);
+            searchQtd.execute(clsGlobal.getIdEndere()+"pedido/"+orderId);
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -76,7 +85,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Requisição de itens do menu
         SearchMenu searchMenu = new SearchMenu();
-        searchMenu.execute("http://10.0.2.2:8081/menu");
+        searchMenu.execute(clsGlobal.getIdEndere()+"menu");
 
     }
 
