@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -116,6 +118,10 @@ public class OrderViewActivity extends AppCompatActivity {
         for (int i = 0; i < cartArray.length; i++) {
 
             int url;
+
+            if (cartArray[i][6].equals("null")) {
+                cartArray[i][6] = "*Sem Observação*";
+            }
 
             if (cartArray[i][2].equals("R.drawable.fetuccine")) {
                 url = R.drawable.fetuccine;
